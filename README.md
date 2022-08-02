@@ -1,0 +1,1 @@
+https://www.figma.com/file/4oC7nds0EItAQIdtPcIwdw/Wallet-App-(Community)-(Community)?node-id=36%3A196
