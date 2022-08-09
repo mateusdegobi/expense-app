@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {StatusBar} from 'expo-status-bar';
+import Home from './src/pages/Home';
+import Transfer from './src/pages/Transfer';
+import Transaction from './src/pages/Transaction';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function TabsView() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          backgroundColor: '#2F1155',
+          position: 'absolute',
+          bottom: 10,
+          left: 15,
+          right: 15,
+          borderRadius: 30,
+          height: 80,
+          elevation: 20,
+        },
+      }}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Transfer" component={Transfer} />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="HomeView" component={TabsView} />
+        <Stack.Screen name="Transaction" component={Transaction} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
