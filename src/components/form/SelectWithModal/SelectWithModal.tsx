@@ -27,7 +27,8 @@ const Input = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 25px;
+  padding: 20px 25px;
+  margin: 15px 0px;
 `;
 
 const Text = styled.Text`

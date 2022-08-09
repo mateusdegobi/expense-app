@@ -45,13 +45,9 @@ export default function Transaction({navigation, route}) {
           BTG Crédito
         </SelectWithModal>
 
-        <SelectWithModal onPress={() => false}>
-          BTG Crédito
-        </SelectWithModal>
+        <SelectWithModal onPress={() => false}>Roupas</SelectWithModal>
 
-        <SelectWithModal midText="3x" onPress={() => false}>
-          BTG Crédito
-        </SelectWithModal>
+        <SelectWithModal onPress={() => false}>Hoje</SelectWithModal>
       </S.View>
     </>
   );
