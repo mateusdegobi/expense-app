@@ -11,6 +11,8 @@ export default function Transaction({navigation, route}) {
   const [isModalAccountBank, setIsModalAccountBank] = useState(false);
   const [isModalCategory, setIsModalCategory] = useState(false);
 
+  const [isViewNumpad, setIsViewNumpad] = useState(false);
+
   const {type} = route?.params;
   const currencyPolo = type === 'entrada' ? 'R$' : 'R$-';
 
@@ -33,6 +35,10 @@ export default function Transaction({navigation, route}) {
     [value],
   );
 
+  const handleSubmit = useCallback(() => {
+    console.log(form);
+  }, []);
+
   return (
     <>
       <S.View>
@@ -51,30 +57,35 @@ export default function Transaction({navigation, route}) {
             onChangeText={handleInputValue}
             keyboardType="number-pad"
             type={type}
+            onFocus={() => setIsViewNumpad(true)}
+            onBlur={() => setIsViewNumpad(false)}
+            onEndEditing={() => setIsViewNumpad(false)}
+            showSoftInputOnFocus={false}
           />
         </S.AreaDisplayInput>
 
-        <S.Form>
-          <TextInput placeholderColor="#828282" placeholder="O que seria?" />
+        {isViewNumpad ? null : (
+          <S.Form>
+            <TextInput placeholderColor="#828282" placeholder="O que seria?" />
 
-          <SelectWithModal
-            onPress={() => setIsModalAccountBank(true)}
-            placeholder="Qual tipo de conta?">
-            {form.account.name
-              ? `${form.account.name} - ${form.account.type}`
-              : ''}
-          </SelectWithModal>
+            <SelectWithModal
+              onPress={() => setIsModalAccountBank(true)}
+              placeholder="Qual tipo de conta?">
+              {form.account.name
+                ? `${form.account.name} - ${form.account.type}`
+                : ''}
+            </SelectWithModal>
 
-          <SelectWithModal
-            onPress={() => setIsModalCategory(true)}
-            placeholder="Qual a categoria?">
-            {form.category.name}
-          </SelectWithModal>
+            <SelectWithModal
+              onPress={() => setIsModalCategory(true)}
+              placeholder="Qual a categoria?">
+              {form.category.name}
+            </SelectWithModal>
 
-          <SelectWithModal onPress={() => false}>Hoje</SelectWithModal>
-        </S.Form>
-
-        <MainButton>Confirmar</MainButton>
+            <SelectWithModal onPress={() => false}>Hoje</SelectWithModal>
+          </S.Form>
+        )}
+        <MainButton onPress={handleSubmit}>Confirmar</MainButton>
       </S.View>
       <ModalSelectBankAccount
         visible={isModalAccountBank}
