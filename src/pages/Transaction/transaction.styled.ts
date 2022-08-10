@@ -28,9 +28,9 @@ type DisplayInputProps = {
 export const DisplayInput = styled.TextInput<DisplayInputProps>`
   width: 50%;
   margin-left: 25%;
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
-  font-weight: 800;
+  font-weight: 600;
   color: ${props => (props.type === 'entrada' ? '#397E55' : '#7E395A')};
 `;
 
