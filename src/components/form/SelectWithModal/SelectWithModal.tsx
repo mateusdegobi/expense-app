@@ -3,15 +3,14 @@ import styled from 'styled-components/native';
 
 type Props = {
   children: string;
-  midText?: string | JSX.Element;
   onPress: () => void;
+  placeholder: string;
 };
 
-export default function SelectWithModal({children, midText, onPress}: Props) {
+export default function SelectWithModal({children, onPress, placeholder}: Props) {
   return (
     <Input onPress={onPress}>
-      <Text>{children}</Text>
-      <Text>{midText}</Text>
+      <Text active={children} >{children ? children : placeholder}</Text>
       <Image
         source={require('../../../assets/icons/forms/dropdown-icon.png')}
         resizeMode="contain"
@@ -31,10 +30,13 @@ const Input = styled.Pressable`
   margin: 15px 0px;
 `;
 
-const Text = styled.Text`
-  color: #2f1155;
-  font-size: 18px;
-  font-weight: 600;
+type TextProps = {
+  active: boolean;
+}
+const Text = styled.Text<TextProps>`
+  color: ${props => props.active ? '#2f1155' : '#828282'};
+  font-size: ${props => props.active ? '18px' : '17px'};
+  font-weight: ${props => props.active ? 600 : 400};
 `;
 
 const Image = styled.Image``;

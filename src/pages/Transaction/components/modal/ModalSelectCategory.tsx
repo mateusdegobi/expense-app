@@ -9,24 +9,24 @@ type Props = {
   setForm: React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function ModalSelectBankAccount({
+export default function ModalSelectCategory({
   visible,
   onRequestClose,
   setForm,
 }: Props) {
-  const accounts = useMemo(() => {
+  const categorys = useMemo(() => {
     return [
       {
-        name: 'BTG',
-        type: 'Crédito',
+        name: 'Lazer',
+        color: 'yellow',
       },
       {
-        name: 'BTG',
-        type: 'Débito',
+        name: 'Contas',
+        color: 'brown',
       },
       {
-        name: 'Banco do Brasil',
-        type: 'Crédito',
+        name: 'Casa',
+        color: 'red',
       },
     ];
   }, []);
@@ -37,25 +37,20 @@ export default function ModalSelectBankAccount({
       visible={visible}
       onRequestClose={onRequestClose}>
       <List>
-        {accounts.map(account => {
+        {categorys.map(category => {
           return (
             <Row
               onPress={() => {
                 setForm((currentData: any) => {
                   return {
                     ...currentData,
-                    account: {
-                      name: account.name,
-                      type: account.type
-                    },
+                    category,
                   };
                 });
                 onRequestClose();
               }}>
               {/* Icon */}
-              <Text key={account.name + account.type}>
-                {account.name + ' - ' + account.type}
-              </Text>
+              <Text key={category.name}>{category.name}</Text>
             </Row>
           );
         })}

@@ -33,3 +33,7 @@ export const DisplayInput = styled.TextInput<DisplayInputProps>`
   font-weight: 800;
   color: ${props => (props.type === 'entrada' ? '#397E55' : '#7E395A')};
 `;
+
+export const Form = styled.View`
+  margin-top: 50px;
+`;
