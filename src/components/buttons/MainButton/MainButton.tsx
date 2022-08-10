@@ -1,14 +1,15 @@
 import React from 'react';
+import {TouchableOpacityProps} from 'react-native';
 import styled from 'styled-components/native';
 
-type Props = {
+interface Props extends TouchableOpacityProps {
   children: string;
-};
+}
 
-export default function MainButton({children}: Props) {
+export default function MainButton(props: Props) {
   return (
     <Button>
-      <Text>{children}</Text>
+      <Text>{props.children}</Text>
     </Button>
   );
 }
