@@ -82,7 +82,7 @@ export default function Transaction({navigation, route}) {
               {form.category.name}
             </SelectWithModal>
 
-            <SelectWithModal onPress={() => false}>Hoje</SelectWithModal>
+            <SelectWithModal placeholder='Quando ocorreu?' onPress={() => false}>Hoje</SelectWithModal>
           </S.Form>
         )}
         <MainButton onPress={handleSubmit}>Confirmar</MainButton>

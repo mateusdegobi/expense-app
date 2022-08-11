@@ -5,6 +5,7 @@ import {StatusBar} from 'expo-status-bar';
 import Home from './src/pages/Home';
 import Transfer from './src/pages/Transfer';
 import Transaction from './src/pages/Transaction';
+import {Image} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -12,6 +13,34 @@ const Stack = createStackNavigator();
 function TabsView() {
   return (
     <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused}) => {
+          let req;
+
+          if (route.name === 'Home') {
+            req = focused
+              ? require('./src/assets/icons/nav/wallet_on.png')
+              : require('./src/assets/icons/nav/wallet_off.png');
+          }
+          if (route.name === 'Stats') {
+            req = focused
+              ? require('./src/assets/icons/nav/chart_on.png')
+              : require('./src/assets/icons/nav/chart_off.png');
+          }
+          if (route.name === 'Notification') {
+            req = focused
+            ? require('./src/assets/icons/nav/notification_off.png')
+            : require('./src/assets/icons/nav/notification_off.png');
+          }
+          if (route.name === 'Settings') {
+            req = focused
+              ? require('./src/assets/icons/nav/setting_off.png')
+              : require('./src/assets/icons/nav/setting_off.png');
+          }
+
+          return <Image source={req} />;
+        },
+      })}
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -26,7 +55,9 @@ function TabsView() {
         },
       }}>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Transfer" component={Transfer} />
+      <Tab.Screen name="Stats" component={Home} />
+      <Tab.Screen name="Notification" component={Home} />
+      <Tab.Screen name="Settings" component={Home} />
     </Tab.Navigator>
   );
 }
