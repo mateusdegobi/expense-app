@@ -41,7 +41,7 @@ export default function Transaction({navigation, route}) {
 
   const handleSubmit = useCallback(() => {
     console.log(form);
-  }, []);
+  }, [form]);
 
   return (
     <>
@@ -105,7 +105,8 @@ export default function Transaction({navigation, route}) {
             </SelectWithModal>
           </S.Form>
         )}
-        <MainButton onPress={handleSubmit}>Confirmar</MainButton>
+
+        <MainButton onPress={handleSubmit}>Adicionar</MainButton>
       </S.View>
       <ModalSelectBankAccount
         visible={isModalAccountBank}
