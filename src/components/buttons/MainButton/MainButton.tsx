@@ -22,7 +22,7 @@ const Button = styled.TouchableOpacity`
   border-radius: 10px;
   width: 80%;
   margin-left: 10%;
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 const Text = styled.Text`
   font-size: 20px;

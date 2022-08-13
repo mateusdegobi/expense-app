@@ -3,6 +3,7 @@ import React, {useCallback, useState} from 'react';
 import MainButton from '../../components/buttons/MainButton/MainButton';
 import SelectWithModal from '../../components/form/SelectWithModal/SelectWithModal';
 import TextInput from '../../components/form/TextInput/TextInput';
+import CustomKeyboard from './components/CustomKeyboard/CustomKeyboard';
 import ModalSelectBankAccount from './components/modal/ModalSelectBankAccount';
 import ModalSelectCategory from './components/modal/ModalSelectCategory';
 import * as S from './transaction.styled';
@@ -26,14 +27,17 @@ export default function Transaction({navigation, route}) {
     account: {name: '', type: ''},
   });
 
-  const handleInputValue = useCallback(
-    (txt: string) => {
-      if (txt.includes(currencyPolo)) {
-        setValue(txt);
-      }
+  const handleAddInputValue = useCallback(
+    (value: string | number) => {
+      setValue(currentValue => currentValue + String(value));
     },
     [value],
   );
+  const handleEraseInputValue = useCallback(() => {
+    if (value !== currencyPolo) {
+      setValue(currentValue => currentValue.slice(0, -1));
+    }
+  }, [value]);
 
   const handleSubmit = useCallback(() => {
     console.log(form);
@@ -51,20 +55,32 @@ export default function Transaction({navigation, route}) {
             />
           </S.ViewBackIcon>
         </S.Header>
-        <S.AreaDisplayInput>
+        <S.AreaDisplayInput onPress={() => setIsViewNumpad(true)}>
           <S.DisplayInput
             value={value}
-            onChangeText={handleInputValue}
+            onChangeText={handleAddInputValue}
             keyboardType="number-pad"
             type={type}
             onFocus={() => setIsViewNumpad(true)}
             onBlur={() => setIsViewNumpad(false)}
             onEndEditing={() => setIsViewNumpad(false)}
             showSoftInputOnFocus={false}
+            disable
+            selectTextOnFocus={false}
+            editable={false}
+            contextMenuHidden={true}
           />
         </S.AreaDisplayInput>
 
-        {isViewNumpad ? null : (
+        {isViewNumpad ? (
+          <S.ViewKeyboard>
+            <CustomKeyboard
+              onDelete={handleEraseInputValue}
+              onInsert={handleAddInputValue}
+              onDismiss={() => setIsViewNumpad(false)}
+            />
+          </S.ViewKeyboard>
+        ) : (
           <S.Form>
             <TextInput placeholderColor="#828282" placeholder="O que seria?" />
 
@@ -82,7 +98,11 @@ export default function Transaction({navigation, route}) {
               {form.category.name}
             </SelectWithModal>
 
-            <SelectWithModal placeholder='Quando ocorreu?' onPress={() => false}>Hoje</SelectWithModal>
+            <SelectWithModal
+              placeholder="Quando ocorreu?"
+              onPress={() => false}>
+              Hoje
+            </SelectWithModal>
           </S.Form>
         )}
         <MainButton onPress={handleSubmit}>Confirmar</MainButton>

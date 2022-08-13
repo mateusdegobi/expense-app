@@ -19,7 +19,7 @@ export const ViewBackIcon = styled.TouchableOpacity`
 export const BackIcon = styled.Image`
   height: 20px;
 `;
-export const AreaDisplayInput = styled.View`
+export const AreaDisplayInput = styled.Pressable`
   margin-top: 20px;
 `;
 type DisplayInputProps = {
@@ -36,4 +36,8 @@ export const DisplayInput = styled.TextInput<DisplayInputProps>`
 
 export const Form = styled.View`
   margin-top: 50px;
+`;
+
+export const ViewKeyboard = styled.View`
+  margin-top: 20px;
 `;
