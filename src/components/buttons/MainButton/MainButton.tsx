@@ -8,7 +8,7 @@ interface Props extends TouchableOpacityProps {
 
 export default function MainButton(props: Props) {
   return (
-    <Button>
+    <Button onPress={props.onPress}>
       <Text>{props.children}</Text>
     </Button>
   );
@@ -20,9 +20,10 @@ const Button = styled.TouchableOpacity`
   align-items: center;
   padding: 18px 0px;
   border-radius: 10px;
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 50px;
+  width: 100%;
+  margin-left: 25px;
+  position: absolute;
+  bottom: 30px;
 `;
 const Text = styled.Text`
   font-size: 20px;
