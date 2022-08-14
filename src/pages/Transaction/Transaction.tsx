@@ -46,7 +46,7 @@ export default function Transaction({navigation, route}) {
   return (
     <>
       <S.View>
-        <StatusBar translucent={false} />
+        <StatusBar backgroundColor='#2f1155' style='light' />
         <S.Header>
           <S.ViewBackIcon onPress={() => navigation.goBack()}>
             <S.BackIcon
