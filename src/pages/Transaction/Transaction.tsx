@@ -1,5 +1,5 @@
 import {StatusBar} from 'expo-status-bar';
-import React, {useCallback, useState} from 'react';
+import React, {createContext, useCallback, useContext, useState} from 'react';
 import MainButton from '../../components/buttons/MainButton/MainButton';
 import SelectWithModal from '../../components/form/SelectWithModal/SelectWithModal';
 import TextInput from '../../components/form/TextInput/TextInput';
@@ -7,6 +7,19 @@ import CustomKeyboard from './components/CustomKeyboard/CustomKeyboard';
 import ModalSelectBankAccount from './components/modal/ModalSelectBankAccount';
 import ModalSelectCategory from './components/modal/ModalSelectCategory';
 import * as S from './transaction.styled';
+
+export const TransationContext = createContext({
+  id: 0,
+  title: '',
+  date: '',
+  account: {
+    name: '',
+    type: '',
+  },
+  category: '',
+  status: '',
+  amount: 0,
+});
 
 export default function Transaction({navigation, route}) {
   const [isModalAccountBank, setIsModalAccountBank] = useState(false);
@@ -18,10 +31,9 @@ export default function Transaction({navigation, route}) {
   const currencyPolo = type === 'entrada' ? 'R$' : 'R$-';
 
   const [value, setValue] = useState(currencyPolo);
-
   const [form, setForm] = useState({
     title: '',
-    value: 0,
+    amount: 0,
     category: {name: '', color: ''},
     date: 0,
     account: {name: '', type: ''},
@@ -39,14 +51,18 @@ export default function Transaction({navigation, route}) {
     }
   }, [value]);
 
-  const handleSubmit = useCallback(() => {
-    console.log(form);
-  }, [form]);
+  const ctx = useContext(TransationContext);
+  const handleSubmit = () => {
+    ctx.title = form.title;
+    ctx.amount = Number(value.replace('R$', ''));
+
+    console.log(ctx);
+  };
 
   return (
     <>
       <S.View>
-        <StatusBar backgroundColor='#2f1155' style='light' />
+        <StatusBar backgroundColor="#2f1155" style="light" />
         <S.Header>
           <S.ViewBackIcon onPress={() => navigation.goBack()}>
             <S.BackIcon
@@ -82,7 +98,19 @@ export default function Transaction({navigation, route}) {
           </S.ViewKeyboard>
         ) : (
           <S.Form>
-            <TextInput placeholderColor="#828282" placeholder="O que seria?" />
+            <TextInput
+              placeholderColor="#828282"
+              placeholder="O que seria?"
+              value={form.title}
+              onChangeText={(txt: string) => {
+                setForm(curr => {
+                  return {
+                    ...curr,
+                    title: txt,
+                  };
+                });
+              }}
+            />
 
             <SelectWithModal
               onPress={() => setIsModalAccountBank(true)}

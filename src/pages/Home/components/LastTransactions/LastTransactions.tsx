@@ -4,32 +4,14 @@ import {FlatList, Text, TouchableOpacity} from 'react-native';
 import TitleTopic from '../../../../components/TitleTopic/TitleTopic';
 import isNumPositive from '../../../../helpers/isNumPositive';
 
-import {fullList} from '../../../../mock/transaction';
-
 import * as GC from '../../home.styled';
 import * as S from './styled';
 
-function LastTransactions() {
-  const [transactions, setTransactions] = React.useState([]);
+type Props = {
+  transactions: any[];
+}
 
-  useEffect(() => {
-    (async () => {
-      const infoList = fullList.indexList;
-      const list = fullList.transactions;
-
-      setTransactions(list[0].list);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const infoList = fullList.indexList;
-      const list = fullList.transactions;
-
-      setTransactions(list[0].list);
-    })();
-  }, []);
-
+function LastTransactions({transactions}: Props) {
   const RenderItemList = ({item}) => {
     return (
       <S.RowListItem>

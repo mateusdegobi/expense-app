@@ -2,13 +2,13 @@ import React from 'react';
 
 import * as S from '../../home.styled';
 
-function InfoSection() {
+function InfoSection({value}) {
   return (
     <S.AreaInfoSection>
       <S.BoxInfoSection>
         <S.SideInfoBalance>
           <S.TitleInfoBalance>Balance</S.TitleInfoBalance>
-          <S.TextValueInfoBalance>R$1.234</S.TextValueInfoBalance>
+          <S.TextValueInfoBalance>R${value}</S.TextValueInfoBalance>
         </S.SideInfoBalance>
       </S.BoxInfoSection>
     </S.AreaInfoSection>
